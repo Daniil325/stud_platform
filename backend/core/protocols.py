@@ -43,7 +43,7 @@ class ThemeTestRepo(ABC):
         ...
         
     @abstractmethod
-    def get_by_id(self, test_id: str) -> ThemeTest:
+    def get_by_id(self, theme_test_id: str) -> ThemeTest:
         ...
         
         
@@ -61,7 +61,7 @@ class QuestionRepo(ABC):
 class AnswerRepo(ABC):
     
     @abstractmethod
-    def add(self, question: Question):
+    def add(self, answer: Answer):
         ...
     
     @abstractmethod
