@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from typing import Any, BinaryIO, List
 
-from backend.core.models import Answer, Question, ResultTest, Theme, ThemeTest, User
+from core.models import Answer, Question, ResultTest, Theme, ThemeTest, User
 
 
 class ImageStorage(ABC):
