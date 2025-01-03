@@ -1,4 +1,5 @@
 from typing import List
+import uuid
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,15 +12,22 @@ class SqlRepo:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
         
-        
+    @staticmethod
+    def new_id() -> str:
+        return uuid.uuid4()
+    
+    
 class SqlThemeRepo(SqlRepo, ThemeRepo):
     
     async def add(self, theme: Theme):
-        await self.session.add(theme)
+        print(theme)
+        self.session.add(theme)
+        self.session.commit()
+        
     
     async def get_all(self) -> List[Theme]:
         stmt = select(Theme)
-        return (await self.session.execute(stmt)).scalars()
+        return (await self.session.execute(stmt)).scalars().all()
     
     async def get_by_id(self, theme_id: str) -> Theme:
         stmt = select(Theme).where(Theme.id == theme_id)

@@ -23,6 +23,8 @@ services:
     environment:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
+      MINIO_ACCESS_KEY: "ePTeT7tQkE7xAHz0CMlc"
+      MINIO_SECRET_KEY: "CM6r6PQP2Q4nWHch3QxW4TedtTDcak9d94Vt7OG0"
 
 volumes:
   postgres-data:

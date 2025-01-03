@@ -1,6 +1,9 @@
-from sqlalchemy import JSON, Boolean, Column, ForeignKey, Integer, String, Table, Uuid
+from typing import List
+import uuid
+from sqlalchemy import JSON, Boolean, Column, ForeignKey, Integer, String, Table, Uuid, select
 from sqlalchemy.orm import registry, sessionmaker, relationship
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from core.protocols import ThemeRepo
 from core.models import (Answer, Question, User, ResultTest, UploadedPhoto,
                                     QuestionType, Theme, ThemeTest)
 
@@ -9,13 +12,23 @@ class SqlAlchemyDB:
 
     def __init__(self, readonly: bool = False):
         engine = create_async_engine("postgresql+asyncpg://postgres:123@localhost:5432/stud_platform",
-                                     echo=True, async_fallback=True)
+                                     echo=True)
         # Not use transaction for read-only connections
         self.engine = engine.execution_options(isolation_level="AUTOCOMMIT") if readonly else engine
         self.sessionmaker = sessionmaker(self.engine, expire_on_commit=False, class_=AsyncSession)
 
     async def close(self):
         await self.engine.dispose()
+        
+        
+class SqlRepo:
+    
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
+        
+    @staticmethod
+    def new_id() -> str:
+        return uuid.uuid5()
 
 
 mapper_reg = registry()
@@ -35,6 +48,7 @@ theme_table = Table(
     metadata, 
     Column('id', Uuid, primary_key=True),
     Column('name', String, nullable=False),
+    Column('description', String, nullable=False),
     Column('lection_id', String),
      Column('test_id', Uuid, ForeignKey('theme_test.id')),
 )
@@ -89,9 +103,7 @@ uploaded_photo_table = Table(
 )
 
 mapper_reg.map_imperatively(ThemeTest, theme_test_table)
-mapper_reg.map_imperatively(
-    Theme, theme_table
-)
+mapper_reg.map_imperatively(Theme, theme_table)
 mapper_reg.map_imperatively(QuestionType, question_type_table)
 mapper_reg.map_imperatively(Question, question_table)
 mapper_reg.map_imperatively(Answer, answer_table)

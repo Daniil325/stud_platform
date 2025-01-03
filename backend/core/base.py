@@ -3,11 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Entity:
-    _id: str
+    id: str
 
     @property
     def id(self) -> str:
-        return self._id
+        return self.id
     
     def __eq__(self, other) -> bool:
         if not isinstance(other, Entity):
