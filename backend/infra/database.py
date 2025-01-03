@@ -22,7 +22,7 @@ class SqlThemeRepo(SqlRepo, ThemeRepo):
     async def add(self, theme: Theme):
         print(theme)
         self.session.add(theme)
-        self.session.commit()
+        await self.session.commit()
         
     
     async def get_all(self) -> List[Theme]:

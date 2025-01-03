@@ -48,7 +48,7 @@ def list_response(items):
     res = []
     for i in items:
         item = asdict(i)
-        for k, v in item.items():
+        for k, _ in item.items():
             if isinstance(item[k], UUID):
                 item[k] = str(item[k])
         res.append(item)
