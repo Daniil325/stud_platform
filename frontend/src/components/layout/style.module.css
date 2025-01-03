@@ -1,0 +1,29 @@
+.aside__container {
+    max-width: 200px;
+    background: #3248c4;
+    flex: 0 0 30%;
+}
+
+.aside_items {
+    padding: 0 20px;
+}
+
+.aside_item {
+    border: rgba(255, 255, 255, 0.85) solid 2px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.item_title {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.aside_item:hover {
+    border: #3248c4 solid 2px;
+    color: #3248c4;
+    background: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+}

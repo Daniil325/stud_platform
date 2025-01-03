@@ -1,0 +1,41 @@
+.theme_list {
+    padding: 30px;
+}
+
+.theme__container {
+    border: rgb(106, 106, 107) solid 2px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.theme__container:hover {
+    border: rgb(0, 0, 0) solid 2px;
+
+    .theme_description {
+        font-weight: 700;
+    }
+}
+
+.theme_title {
+    color: #3248c4;
+    font-weight: 700;
+    margin: 0;
+}
+
+.theme_link {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.theme_link img {
+    width: 30px;
+}
+
+.theme_link__text {
+    color: #3248c4;
+    font-weight: 700;
+    
+}
