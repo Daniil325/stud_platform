@@ -1,5 +1,4 @@
 import logging
-import asyncio
 from contextlib import asynccontextmanager
 
 from dishka import make_async_container
@@ -7,9 +6,9 @@ from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from usecases import CommandsProvider
 from infra.mapping import SqlAlchemyDB
-from infra.di import AdaptersProvider, CommandsProvider, SqlRepoProvider
-from infra.session import async_db_session, db_session
+from infra.di import AdaptersProvider, SqlRepoProvider
 from presentation import api_router
 
 

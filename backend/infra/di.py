@@ -3,19 +3,11 @@ import aiohttp
 from dishka import Provider, Scope, alias, provide
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 from core.protocols import ImageStorage
 from infra.s3 import S3FileStorage
 from infra.database import SqlThemeRepo
-from infra.usecases import CreateFileCommand, CreateThemeCommad
-
-
-class CommandsProvider(Provider):
-    scope = Scope.REQUEST
-
-    create_theme_command = provide(CreateThemeCommad)
-    create_file_command = provide(CreateFileCommand)
 
 
 class SqlRepoProvider(Provider):

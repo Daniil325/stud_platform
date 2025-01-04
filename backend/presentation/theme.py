@@ -1,14 +1,12 @@
-from dataclasses import asdict
-
 from fastapi import APIRouter, UploadFile
 from dishka.integrations.fastapi import FromDishka, DishkaRoute
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
-from infra.s3 import ImageDescr, S3FileStorage
+from infra.s3 import S3FileStorage
 from infra.usecases import (
     CreateFileCommand,
     CreateImageDto,
-    CreateThemeCommad,
+    CreateThemeCommand,
     list_response,
     CreateThemeDto,
 )
@@ -26,10 +24,13 @@ class ThemeListResponse(BaseModel):
 @router.get("/")
 async def get_all_themes(repo: FromDishka[SqlThemeRepo]):
     res = await repo.get_all()
-    for i in res:
-        print(asdict(i))
-    items = list_response(res)
-    return items
+    return list_response(res)
+
+
+@router.get("/{id}")
+async def get_theme(id: str, repo: FromDishka[SqlThemeRepo]):
+    res = await repo.get_by_id(id)
+    return {"item": res}
 
 
 class CreateTheme(BaseModel):
@@ -41,8 +42,7 @@ class CreateTheme(BaseModel):
 
 
 @router.post("/")
-async def post_theme(theme: CreateTheme, cmd: FromDishka[CreateThemeCommad]):
-    print(theme)
+async def post_theme(theme: CreateTheme, cmd: FromDishka[CreateThemeCommand]):
     identity = await cmd(
         CreateThemeDto(
             name=theme.name,
