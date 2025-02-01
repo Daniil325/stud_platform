@@ -15,11 +15,11 @@ class Theme:
 @dataclass
 class ThemeTest:
     id: str
-    name: str 
+    name: str
     min_score: int
     time_limit: int
-    
-    
+
+
 @dataclass
 class QuestionType:
     id: str
@@ -32,7 +32,7 @@ class Question:
     name: str
     test_id: str
     type_id: str
-    
+
 
 @dataclass
 class Answer:

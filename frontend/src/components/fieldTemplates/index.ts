@@ -1,0 +1,1 @@
+export {boolFieldTemplate} from "./booleanTemplate.tsx";
